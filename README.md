@@ -1,6 +1,8 @@
 # SQL-Task
 
 ## Money Transfer
+
+# Tables
 - user_details
 - balance_info
 - transactions
