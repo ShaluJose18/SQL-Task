@@ -1,6 +1,6 @@
 drop procedure st_transaction_rollback;
 
-
+/* Procedure */
  Delimiter //
  Create Procedure st_transaction_rollback(
  in _with_amount double,
