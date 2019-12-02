@@ -68,20 +68,18 @@ truncate table transactions;
      
      insert into transactions(sender_accno,receiver_accno,amount) values((select user_id from user_details where account_no =  _sender_accno),(select user_id from user_details where account_no =_receiver_accno),_with_amount);
      select b.amount into _samount from user_details as u inner join balance_info as b on u.user_id = b.userdetails_id where u.account_no=_sender_accno;
-     
+     select _samount;
      IF(_samount!='') THEN
-	 update balance_info set amount=amount - _with_amount where userdetails_id=_sender_acc and amount >= _with_amount;
+	 update balance_info set amount=amount - _with_amount where userdetails_id=(select user_id from user_details where account_no =  _sender_accno) and amount >= _with_amount;
      else
      rollback;
      END IF;
-     
      select 'reciever';
      select b.amount into _ramount from user_details as u inner join balance_info as b on u.user_id = b.userdetails_id where u.account_no=_receiver_accno;
      select _ramount;
-     
      IF(_ramount!='') THEN
-	 update balance_info set amount=amount + _with_amount where userdetails_id=_receiver_accno; 
-     update transactions set status='Success' where sender_accno=_sender_accno;
+	 update balance_info set amount=amount + _with_amount where userdetails_id=(select user_id from user_details where account_no =_receiver_accno); 
+     update transactions set status='Success' where sender_accno=(select user_id from user_details where account_no =  _sender_accno);
      else
      rollback;
      END IF;
