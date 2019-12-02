@@ -2,7 +2,7 @@
 
 ## Money Transfer
 
-# Tables
+### Tables
 - user_details
 - balance_info
 - transactions
